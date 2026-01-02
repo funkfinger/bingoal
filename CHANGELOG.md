@@ -99,6 +99,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Added "✨ Inspire Me" button to Add Goal modal
   - Implemented random goal suggestion functionality
   - Styled button with gradient and positioned inside textarea for better UX
+- Implemented board deletion functionality:
+  - Created API endpoint for deleting boards with authorization checks
+  - Added "Delete Board" button to Edit Board modal
+  - Implemented confirmation dialog before deletion
+  - Cascade delete all associated goals via database foreign key
+  - Redirect to dashboard after successful deletion
 
 ### Changed
 

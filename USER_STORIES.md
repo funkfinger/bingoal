@@ -94,15 +94,15 @@
 
 ### Story: Delete Bingo Board
 
-- [ ] **As a** user  
-       **I want to** delete a bingo board  
-       **So that** I can remove boards I no longer need
+- [x] **As a** user
+      **I want to** delete a bingo board
+      **So that** I can remove boards I no longer need
 
 **Acceptance Criteria:**
 
-- [ ] User can delete a board
-- [ ] User receives confirmation before deletion
-- [ ] Deleted boards are permanently removed
+- [x] User can delete a board
+- [x] User receives confirmation before deletion
+- [x] Deleted boards are permanently removed
 
 ### Story: Lock Board Goals
 
@@ -133,6 +133,7 @@
 - [x] Maximum character limit is enforced for readability
 - [x] Sample goals are populated for inspiration - data/example-goals.json
 - [ ] Form element is pre-populated with a random sample goal from data/example-goals.json
+- [ ] Inspire me button exists if the form field is empty.
 
 ### Story: Edit Goal
 
