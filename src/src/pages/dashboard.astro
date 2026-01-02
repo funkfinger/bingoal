@@ -1,7 +1,24 @@
 ---
+import { createSupabaseServerClient } from '../lib/supabaseServer';
+import type { Board } from '../lib/types';
+
 // This page is protected by middleware
 const session = Astro.locals.session;
 const user = session?.user;
+
+// Fetch user's boards
+const supabase = createSupabaseServerClient(Astro.cookies);
+const { data: boards, error: boardsError } = await supabase
+  .from('boards')
+  .select('*')
+  .order('year', { ascending: false })
+  .order('created_at', { ascending: false });
+
+if (boardsError) {
+  console.error('Error fetching boards:', boardsError);
+}
+
+const userBoards: Board[] = boards || [];
 ---
 
 <!DOCTYPE html>
@@ -142,6 +159,202 @@ const user = session?.user;
       .create-board-btn:hover {
         background: #5568d3;
       }
+
+      .boards-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 24px;
+        margin-top: 24px;
+      }
+
+      .board-card {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 12px;
+        padding: 24px;
+        color: white;
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .board-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      }
+
+      .board-card h3 {
+        font-size: 20px;
+        margin-bottom: 8px;
+        font-weight: 600;
+      }
+
+      .board-card .year {
+        font-size: 14px;
+        opacity: 0.9;
+        margin-bottom: 16px;
+      }
+
+      .board-card .stats {
+        font-size: 14px;
+        opacity: 0.9;
+      }
+
+      /* Modal styles */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .modal.active {
+        display: flex;
+      }
+
+      .modal-content {
+        background: white;
+        border-radius: 12px;
+        padding: 32px;
+        max-width: 500px;
+        width: 90%;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      }
+
+      .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+      }
+
+      .modal-header h2 {
+        font-size: 24px;
+        color: #333;
+      }
+
+      .close-btn {
+        background: none;
+        border: none;
+        font-size: 24px;
+        color: #999;
+        cursor: pointer;
+        padding: 0;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
+        transition: background 0.2s;
+      }
+
+      .close-btn:hover {
+        background: #f0f0f0;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: #333;
+        font-weight: 500;
+      }
+
+      .form-group input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 16px;
+        transition: border-color 0.2s;
+      }
+
+      .form-group input:focus {
+        outline: none;
+        border-color: #667eea;
+      }
+
+      .form-actions {
+        display: flex;
+        gap: 12px;
+        justify-content: flex-end;
+        margin-top: 24px;
+      }
+
+      .btn {
+        padding: 12px 24px;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+
+      .btn-primary {
+        background: #667eea;
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background: #5568d3;
+      }
+
+      .btn-primary:disabled {
+        background: #ccc;
+        cursor: not-allowed;
+      }
+
+      .btn-secondary {
+        background: #f0f0f0;
+        color: #333;
+      }
+
+      .btn-secondary:hover {
+        background: #e0e0e0;
+      }
+
+      .error-message {
+        color: #e53e3e;
+        font-size: 14px;
+        margin-top: 8px;
+      }
+
+      .add-board-btn {
+        background: white;
+        border: 2px dashed #667eea;
+        border-radius: 12px;
+        padding: 24px;
+        color: #667eea;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 200px;
+        font-weight: 500;
+      }
+
+      .add-board-btn:hover {
+        background: #f8f9ff;
+        border-color: #5568d3;
+        color: #5568d3;
+      }
+
+      .add-board-btn .icon {
+        font-size: 48px;
+        margin-bottom: 12px;
+      }
     </style>
   </head>
   <body>
@@ -173,23 +386,193 @@ const user = session?.user;
 
       <div class="boards-section">
         <h2>Your Bingo Boards</h2>
-        <div class="empty-state">
-          <div class="empty-state-icon">📋</div>
-          <p>You don't have any bingo boards yet.</p>
-          <p>Create your first board to start tracking your goals!</p>
-          <button class="create-board-btn">Create Your First Board</button>
+
+        {userBoards.length === 0 ? (
+          <div class="empty-state">
+            <div class="empty-state-icon">📋</div>
+            <p>You don't have any bingo boards yet.</p>
+            <p>Create your first board to start tracking your goals!</p>
+            <button id="create-first-board-btn" class="create-board-btn">Create Your First Board</button>
+          </div>
+        ) : (
+          <div class="boards-grid">
+            {userBoards.map((board) => (
+              <div class="board-card" data-board-id={board.id}>
+                <h3>{board.title}</h3>
+                <div class="year">📅 {board.year}</div>
+                <div class="stats">Click to view and edit goals</div>
+              </div>
+            ))}
+            <button id="add-board-btn" class="add-board-btn">
+              <div class="icon">➕</div>
+              <div>Create New Board</div>
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+
+    <!-- Create Board Modal -->
+    <div id="create-board-modal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Create New Board</h2>
+          <button id="close-modal-btn" class="close-btn">×</button>
         </div>
+        <form id="create-board-form">
+          <div class="form-group">
+            <label for="board-title">Board Title</label>
+            <input
+              type="text"
+              id="board-title"
+              name="title"
+              placeholder="e.g., 2025 Goals"
+              required
+              maxlength="100"
+            />
+          </div>
+          <div class="form-group">
+            <label for="board-year">Year</label>
+            <input
+              type="number"
+              id="board-year"
+              name="year"
+              placeholder="2025"
+              required
+              min="2000"
+              max="2100"
+              value={new Date().getFullYear()}
+            />
+          </div>
+          <div id="form-error" class="error-message" style="display: none;"></div>
+          <div class="form-actions">
+            <button type="button" id="cancel-btn" class="btn btn-secondary">Cancel</button>
+            <button type="submit" id="submit-btn" class="btn btn-primary">Create Board</button>
+          </div>
+        </form>
       </div>
     </div>
 
     <script>
+      // Logout functionality
       const logoutBtn = document.getElementById('logout-btn');
-
       logoutBtn?.addEventListener('click', () => {
-        // Simply navigate to the logout page which handles server-side logout
         window.location.href = '/logout';
+      });
+
+      // Modal functionality
+      const modal = document.getElementById('create-board-modal');
+      const createFirstBoardBtn = document.getElementById('create-first-board-btn');
+      const addBoardBtn = document.getElementById('add-board-btn');
+      const closeModalBtn = document.getElementById('close-modal-btn');
+      const cancelBtn = document.getElementById('cancel-btn');
+      const form = document.getElementById('create-board-form') as HTMLFormElement;
+      const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+      const formError = document.getElementById('form-error');
+
+      // Open modal
+      const openModal = () => {
+        modal?.classList.add('active');
+        // Focus on title input
+        const titleInput = document.getElementById('board-title') as HTMLInputElement;
+        setTimeout(() => titleInput?.focus(), 100);
+      };
+
+      // Close modal
+      const closeModal = () => {
+        modal?.classList.remove('active');
+        form?.reset();
+        if (formError) {
+          formError.style.display = 'none';
+          formError.textContent = '';
+        }
+      };
+
+      // Event listeners for opening modal
+      createFirstBoardBtn?.addEventListener('click', openModal);
+      addBoardBtn?.addEventListener('click', openModal);
+
+      // Event listeners for closing modal
+      closeModalBtn?.addEventListener('click', closeModal);
+      cancelBtn?.addEventListener('click', closeModal);
+
+      // Close modal when clicking outside
+      modal?.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          closeModal();
+        }
+      });
+
+      // Handle form submission
+      form?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // Get form data
+        const formData = new FormData(form);
+        const title = formData.get('title') as string;
+        const year = parseInt(formData.get('year') as string);
+
+        // Validate
+        if (!title || !title.trim()) {
+          showError('Please enter a board title');
+          return;
+        }
+
+        if (!year || year < 2000 || year > 2100) {
+          showError('Please enter a valid year (2000-2100)');
+          return;
+        }
+
+        // Disable submit button
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Creating...';
+
+        try {
+          // Call API
+          const response = await fetch('/api/boards/create', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ title: title.trim(), year }),
+          });
+
+          const result = await response.json();
+
+          if (result.success) {
+            // Reload page to show new board
+            window.location.reload();
+          } else {
+            showError(result.error || 'Failed to create board');
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Create Board';
+          }
+        } catch (error) {
+          console.error('Error creating board:', error);
+          showError('An unexpected error occurred');
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Create Board';
+        }
+      });
+
+      function showError(message: string) {
+        if (formError) {
+          formError.textContent = message;
+          formError.style.display = 'block';
+        }
+      }
+
+      // Handle board card clicks (navigate to board detail page - to be implemented)
+      document.querySelectorAll('.board-card').forEach((card) => {
+        card.addEventListener('click', () => {
+          const boardId = card.getAttribute('data-board-id');
+          if (boardId) {
+            // TODO: Navigate to board detail page
+            console.log('Navigate to board:', boardId);
+            alert('Board detail page coming soon!');
+          }
+        });
       });
     </script>
   </body>
 </html>
-

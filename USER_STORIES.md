@@ -52,6 +52,57 @@
 - [x] Session is cleared upon logout
 - [x] User is redirected to login page
 
+## Bingo Board Management
+
+### Story: Create Bingo Board
+
+- [ ] **As a** user  
+      **I want to** create a new bingo board for the year  
+      **So that** I can organize my yearly goals
+
+**Acceptance Criteria:**
+
+- [ ] User can create a new 5x5 bingo board
+- [ ] User can set a title/name for the board
+- [ ] User can specify the year for the board
+- [ ] Board is saved and associated with the user
+
+### Story: View Bingo Boards
+
+- [ ] **As a** user  
+      **I want to** view all my bingo boards  
+      **So that** I can see my different goal collections
+
+**Acceptance Criteria:**
+
+- [ ] User sees a list/grid of all their boards
+- [ ] Each board shows its title and year
+- [ ] User can click to view board details
+
+### Story: Edit Bingo Board
+
+- [ ] **As a** user  
+      **I want to** edit my bingo board details  
+      **So that** I can update the title or year if needed
+
+**Acceptance Criteria:**
+
+- [ ] User can edit board title
+- [ ] User can edit board year
+- [ ] Changes are saved immediately or with confirmation
+
+### Story: Delete Bingo Board
+
+- [ ] **As a** user  
+      **I want to** delete a bingo board  
+      **So that** I can remove boards I no longer need
+
+**Acceptance Criteria:**
+
+- [ ] User can delete a board
+- [ ] User receives confirmation before deletion
+- [ ] Deleted boards are permanently removed
+
 ---
 
 **Note for AI Agent:** Do not work on anything below this line!
