@@ -4,53 +4,53 @@
 
 ### Story: Base Technologies
 
-- [ ] **As a** developer
+- [x] **As a** developer
       **I want to** use Astro as the base framework
       **So that** I can build a fast and modern web application
 
 **Acceptance Criteria:**
 
-- [ ] Astro is installed and configured
-- [ ] Basic project structure is in place
-- [ ] Development server runs without errors
-- [ ] Basic routing is implemented
+- [x] Astro is installed and configured
+- [x] Basic project structure is in place
+- [x] Development server runs without errors
+- [x] Basic routing is implemented
 
 ## User Management
 
 ### Story: User Registration
 
-- [ ] **As a** new user
+- [x] **As a** new user
       **I want to** create an account using the "Sign in with XXX" method.
       **So that** I can track my personal yearly goals
 
 **Acceptance Criteria:**
 
-- [ ] User can use an existing account - OAuth with Google, GitHub, etc.
-- [ ] User receives confirmation of successful registration
-- [ ] No personal information is required beyond existing account information
+- [x] User can use an existing account - OAuth with Google, GitHub, etc.
+- [x] User receives confirmation of successful registration
+- [x] No personal information is required beyond existing account information
 
 ### Story: User Login
 
-- [ ] **As a** registered user  
-       **I want to** log into my account  
-       **So that** I can access my bingo boards
+- [x] **As a** registered user
+      **I want to** log into my account
+      **So that** I can access my bingo boards
 
 **Acceptance Criteria:**
 
-- [ ] User can log in with existing account - "Sign in with Google", etc.
-- [ ] User session is maintained across page refreshes
+- [x] User can log in with existing account - "Sign in with Google", etc.
+- [x] User session is maintained across page refreshes
 
 ### Story: User Logout
 
-- [ ] **As a** logged-in user  
-       **I want to** log out of my account  
-       **So that** I can keep my goals private on shared devices
+- [x] **As a** logged-in user
+      **I want to** log out of my account
+      **So that** I can keep my goals private on shared devices
 
 **Acceptance Criteria:**
 
-- [ ] User can log out from any page
-- [ ] Session is cleared upon logout
-- [ ] User is redirected to login page
+- [x] User can log out from any page
+- [x] Session is cleared upon logout
+- [x] User is redirected to login page
 
 ---
 
