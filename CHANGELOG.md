@@ -30,7 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Recommended Supabase Auth for OAuth implementation
 - Integrated Supabase into the project:
   - Installed @supabase/supabase-js and @supabase/ssr packages
-  - Created Supabase project (wiekhzjypbqkwgljvzzu.supabase.co)
+  - Created Supabase project and configured database
   - Configured environment variables (.env file)
   - Created Supabase client utilities (supabase.ts and supabaseServer.ts)
   - Researched new Supabase API key system (legacy JWT keys still supported until late 2026)
