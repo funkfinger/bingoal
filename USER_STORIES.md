@@ -132,6 +132,7 @@
 - [x] Goal is saved to the specific square
 - [x] Maximum character limit is enforced for readability
 - [x] Sample goals are populated for inspiration - data/example-goals.json
+- [ ] Form element is pre-populated with a random sample goal from data/example-goals.json
 
 ### Story: Edit Goal
 

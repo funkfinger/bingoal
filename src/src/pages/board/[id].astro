@@ -670,6 +670,8 @@ boardGoals.forEach(goal => {
           </div>
           <div id="edit-board-form-error" class="error-message" style="display: none;"></div>
           <div class="form-actions">
+            <button type="button" id="delete-board-btn" class="btn btn-danger">Delete Board</button>
+            <div style="flex: 1;"></div>
             <button type="button" id="cancel-edit-board-btn" class="btn btn-secondary">Cancel</button>
             <button type="submit" id="submit-edit-board-btn" class="btn btn-primary">Save Changes</button>
           </div>
@@ -726,6 +728,7 @@ boardGoals.forEach(goal => {
       const closeEditBoardModalBtn = document.getElementById('close-edit-board-modal-btn');
       const cancelEditBoardBtn = document.getElementById('cancel-edit-board-btn');
       const submitEditBoardBtn = document.getElementById('submit-edit-board-btn');
+      const deleteBoardBtn = document.getElementById('delete-board-btn');
       const editBoardFormError = document.getElementById('edit-board-form-error');
       const boardTitleInput = document.getElementById('board-title');
       const boardYearInput = document.getElementById('board-year');
@@ -1013,6 +1016,40 @@ boardGoals.forEach(goal => {
           showEditBoardError('An unexpected error occurred');
           submitEditBoardBtn.disabled = false;
           submitEditBoardBtn.textContent = 'Save Changes';
+        }
+      });
+
+      // Handle delete board
+      deleteBoardBtn?.addEventListener('click', async () => {
+        if (!confirm('Are you sure you want to delete this board? This will permanently delete the board and all its goals. This action cannot be undone.')) {
+          return;
+        }
+
+        deleteBoardBtn.disabled = true;
+        deleteBoardBtn.textContent = 'Deleting...';
+
+        try {
+          const response = await fetch('/api/boards/delete', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ board_id: boardId }),
+          });
+
+          const result = await response.json();
+
+          if (result.success) {
+            // Redirect to dashboard after successful deletion
+            window.location.href = '/dashboard';
+          } else {
+            showEditBoardError(result.error || 'Failed to delete board');
+            deleteBoardBtn.disabled = false;
+            deleteBoardBtn.textContent = 'Delete Board';
+          }
+        } catch (error) {
+          console.error('Error deleting board:', error);
+          showEditBoardError('An unexpected error occurred');
+          deleteBoardBtn.disabled = false;
+          deleteBoardBtn.textContent = 'Delete Board';
         }
       });
 
