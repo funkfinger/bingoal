@@ -88,6 +88,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - Identifies when entire board is completed
   - Updated goal update API to return bingo achievement data
   - Integrated celebrations into UI with delayed page reload
+- Implemented board editing functionality:
+  - Created API endpoint for updating board title and year
+  - Added edit button to board detail page header
+  - Built modal UI for editing board details
+  - Implemented form validation and error handling
+  - Added authorization checks to ensure users can only edit their own boards
 
 ### Changed
 
