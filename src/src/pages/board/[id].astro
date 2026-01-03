@@ -156,8 +156,14 @@ boardGoals.forEach(goal => {
         transition: background 0.2s;
       }
 
-      .lock-btn:hover {
+      .lock-btn:hover:not(:disabled) {
         background: #d97706;
+      }
+
+      .lock-btn:disabled {
+        background: #9ca3af;
+        cursor: not-allowed;
+        opacity: 0.6;
       }
 
       .locked-indicator {
@@ -266,6 +272,27 @@ boardGoals.forEach(goal => {
       .bingo-cell.completed .goal-text {
         text-decoration: line-through;
         opacity: 0.9;
+      }
+
+      .bingo-cell.free-space {
+        background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+        color: white;
+        border-color: #f59e0b;
+        cursor: default;
+      }
+
+      .bingo-cell.free-space:hover {
+        transform: none;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        border-color: #f59e0b;
+      }
+
+      .bingo-cell.free-space .goal-text {
+        font-weight: 700;
+        font-size: 16px;
+        text-decoration: none;
+        opacity: 1;
+        letter-spacing: 0.5px;
       }
 
       .bingo-cell .empty-icon {
@@ -566,7 +593,12 @@ boardGoals.forEach(goal => {
           </div>
           <button id="edit-board-btn" class="edit-board-btn">✏️ Edit</button>
           {!board.locked && (
-            <button id="lock-btn" class="lock-btn">
+            <button
+              id="lock-btn"
+              class="lock-btn"
+              disabled={boardGoals.length < 25}
+              title={boardGoals.length < 25 ? `Add ${25 - boardGoals.length} more goal(s) before locking` : 'Lock this board'}
+            >
               🔒 Lock
             </button>
           )}
@@ -601,11 +633,13 @@ boardGoals.forEach(goal => {
       <div class="bingo-grid">
         {Array.from({ length: 25 }, (_, i) => {
           const goal = goalsMap.get(i);
+          const isFreeSpace = i === 12;
           return (
             <div
-              class={`bingo-cell ${goal ? (goal.completed ? 'completed' : '') : 'empty'}`}
+              class={`bingo-cell ${goal ? (goal.completed ? 'completed' : '') : 'empty'} ${isFreeSpace ? 'free-space' : ''}`}
               data-position={i}
               data-goal-id={goal?.id || ''}
+              data-free-space={isFreeSpace}
             >
               {goal ? (
                 <>
@@ -949,6 +983,12 @@ boardGoals.forEach(goal => {
         cell.addEventListener('click', () => {
           const position = parseInt(cell.getAttribute('data-position') || '0');
           const goalId = cell.getAttribute('data-goal-id');
+          const isFreeSpace = cell.getAttribute('data-free-space') === 'true';
+
+          // Don't allow interaction with free space
+          if (isFreeSpace) {
+            return;
+          }
 
           if (goalId) {
             // Get goal data from cell

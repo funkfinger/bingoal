@@ -33,7 +33,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     // Verify the goal belongs to the user's board
     const { data: goal, error: goalError } = await supabase
       .from("goals")
-      .select("board_id, boards!inner(user_id)")
+      .select("board_id, position, boards!inner(user_id)")
       .eq("id", goal_id)
       .single();
 
@@ -50,6 +50,17 @@ export const POST: APIRoute = async ({ request, cookies }) => {
       return new Response(
         JSON.stringify({ success: false, error: "Access denied" }),
         { status: 403, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
+    // Prevent editing the free space (position 12) text
+    if (goalData.position === 12 && text !== undefined) {
+      return new Response(
+        JSON.stringify({
+          success: false,
+          error: "Cannot edit free space goal",
+        }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
       );
     }
 
