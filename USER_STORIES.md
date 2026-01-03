@@ -146,9 +146,9 @@
 - [x] Goal is saved to the specific square
 - [x] Maximum character limit is enforced for readability
 - [x] Sample goals are populated for inspiration - data/example-goals.json
-- [ ] Form element is pre-populated with a random sample goal from data/example-goals.json
-- [ ] Inspire me button exists if the form field is empty.
-- [ ] Create goal has the option be entered as a "free space" in which the UI changes to reflect that it is a free space.
+- [x] Form element is pre-populated (placeholder) with a random sample goal from data/example-goals.json - if user doesn't change text, placeholder text is saved.
+- [x] Inspire me button exists if the form field is empty.
+- [x] Create goal has the option be entered as a "free space" in which the UI changes to reflect that it is a free space.
 
 ### Story: Edit Goal
 

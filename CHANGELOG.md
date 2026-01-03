@@ -125,6 +125,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Styled with distinctive gold gradient background
   - Clicking free space has no effect
   - API endpoints prevent modification of free space goal
+- Enhanced goal creation UX with smart placeholder and dynamic button:
+  - Random goal from example-goals.json now appears as placeholder text when Add Goal modal opens
+  - Placeholder text is saved as the goal if user submits without typing
+  - "✨ Inspire Me" button now dynamically shows/hides based on textarea content
+  - Button only visible when textarea is empty for cleaner UX
+  - Removed HTML5 required attribute to allow JavaScript validation with placeholder fallback
+  - Placeholder resets to default when modal is closed
+- Enforced goal completion only on locked boards:
+  - Completion checkbox is now disabled on unlocked boards
+  - Added informational message: "Lock the board to enable goal completion tracking"
+  - Updated form submission to only send completion status when board is locked
+  - Added server-side validation to prevent completion changes on unlocked boards
+  - Prevents bypassing UI restrictions via direct API calls
+  - Ensures proper workflow: setup goals first, then lock board to start tracking
 
 ### Changed
 

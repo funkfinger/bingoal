@@ -670,7 +670,6 @@ boardGoals.forEach(goal => {
                 id="goal-text"
                 name="text"
                 placeholder="Enter your goal..."
-                required
                 maxlength="200"
               ></textarea>
               <button type="button" id="inspire-btn" class="inspire-btn" title="Get inspiration">
@@ -707,6 +706,9 @@ boardGoals.forEach(goal => {
         <form id="edit-goal-form">
           <div id="locked-info" class="info-message" style="display: none;">
             🔒 This board is locked. You can only update completion status.
+          </div>
+          <div id="unlocked-info" class="info-message" style="display: none;">
+            ℹ️ Lock the board to enable goal completion tracking.
           </div>
           <div class="form-group">
             <label for="edit-goal-text">Goal Description</label>
@@ -845,14 +847,25 @@ boardGoals.forEach(goal => {
       // Lock button
       const lockBtn = document.getElementById('lock-btn');
 
-      // Locked info message
+      // Info messages
       const lockedInfo = document.getElementById('locked-info');
+      const unlockedInfo = document.getElementById('unlocked-info');
 
       // Open add modal
       function openAddModal(position) {
         currentPosition = position;
+
+        // Set a random placeholder goal
+        if (exampleGoals && exampleGoals.length > 0 && goalTextInput) {
+          const randomGoal = exampleGoals[Math.floor(Math.random() * exampleGoals.length)];
+          goalTextInput.placeholder = randomGoal;
+        }
+
         addModal?.classList.add('active');
-        setTimeout(() => goalTextInput?.focus(), 100);
+        setTimeout(() => {
+          goalTextInput?.focus();
+          updateInspireButtonVisibility();
+        }, 100);
       }
 
       // Close add modal
@@ -860,10 +873,18 @@ boardGoals.forEach(goal => {
         addModal?.classList.remove('active');
         addForm?.reset();
         currentPosition = null;
+
+        // Reset placeholder to default
+        if (goalTextInput) {
+          goalTextInput.placeholder = 'Enter your goal...';
+        }
+
         if (addFormError) {
           addFormError.style.display = 'none';
           addFormError.textContent = '';
         }
+
+        updateInspireButtonVisibility();
       }
 
       // Open edit modal
@@ -877,20 +898,25 @@ boardGoals.forEach(goal => {
           editFreeSpaceCheckbox.checked = isFreeSpace;
         }
 
-        // If board is locked, disable text editing and delete button
+        // If board is locked, disable text editing and delete button, enable completion checkbox
         if (isLocked) {
           lockedInfo.style.display = 'flex';
+          unlockedInfo.style.display = 'none';
           editGoalTextInput.disabled = true;
           deleteGoalBtn.disabled = true;
           deleteGoalBtn.style.opacity = '0.5';
           deleteGoalBtn.style.cursor = 'not-allowed';
+          goalCompletedCheckbox.disabled = false;
           submitEditBtn.textContent = 'Update Completion';
         } else {
+          // If board is unlocked, enable text editing and delete button, disable completion checkbox
           lockedInfo.style.display = 'none';
+          unlockedInfo.style.display = 'flex';
           editGoalTextInput.disabled = false;
           deleteGoalBtn.disabled = false;
           deleteGoalBtn.style.opacity = '1';
           deleteGoalBtn.style.cursor = 'pointer';
+          goalCompletedCheckbox.disabled = true;
           submitEditBtn.textContent = 'Save Changes';
         }
 
@@ -930,12 +956,23 @@ boardGoals.forEach(goal => {
         }
       }
 
+      // Function to show/hide Inspire Me button based on textarea content
+      function updateInspireButtonVisibility() {
+        if (goalTextInput && inspireBtn) {
+          const hasText = goalTextInput.value.trim().length > 0;
+          inspireBtn.style.display = hasText ? 'none' : 'block';
+        }
+      }
+
       // Event listeners for add modal
       closeAddModalBtn?.addEventListener('click', closeAddModal);
       cancelAddBtn?.addEventListener('click', closeAddModal);
       addModal?.addEventListener('click', (e) => {
         if (e.target === addModal) closeAddModal();
       });
+
+      // Listen for input changes to show/hide Inspire Me button
+      goalTextInput?.addEventListener('input', updateInspireButtonVisibility);
 
       // Event listeners for edit modal
       closeEditModalBtn?.addEventListener('click', closeEditModal);
@@ -961,6 +998,8 @@ boardGoals.forEach(goal => {
             goalTextInput.focus();
             // Move cursor to end of text
             goalTextInput.setSelectionRange(randomGoal.length, randomGoal.length);
+            // Update button visibility after setting value
+            updateInspireButtonVisibility();
           }
         }
       });
@@ -1037,7 +1076,13 @@ boardGoals.forEach(goal => {
       addForm?.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        const text = goalTextInput.value.trim();
+        let text = goalTextInput.value.trim();
+
+        // If user didn't enter anything, use the placeholder text
+        if (!text && goalTextInput.placeholder && goalTextInput.placeholder !== 'Enter your goal...') {
+          text = goalTextInput.placeholder;
+        }
+
         if (!text) {
           showAddError('Please enter a goal description');
           return;
@@ -1087,6 +1132,9 @@ boardGoals.forEach(goal => {
         const isFreeSpaceCheckbox = document.getElementById('edit-goal-is-free-space');
         const isFreeSpace = isFreeSpaceCheckbox?.checked || false;
 
+        // Build the request body based on board lock status
+        let requestBody;
+
         // If locked, only allow completion status changes
         if (isLocked) {
           // Text should not have changed, but just in case
@@ -1094,12 +1142,23 @@ boardGoals.forEach(goal => {
             showEditError('Goal text cannot be empty');
             return;
           }
+          // Only send completion status when locked
+          requestBody = {
+            goal_id: currentGoalId,
+            completed: completed,
+          };
         } else {
-          // If unlocked, validate text
+          // If unlocked, validate text and only allow text/free_space changes
           if (!text) {
             showEditError('Please enter a goal description');
             return;
           }
+          // Only send text and free_space when unlocked (not completion)
+          requestBody = {
+            goal_id: currentGoalId,
+            text: text,
+            is_free_space: isFreeSpace,
+          };
         }
 
         submitEditBtn.disabled = true;
@@ -1109,12 +1168,7 @@ boardGoals.forEach(goal => {
           const response = await fetch('/api/goals/update', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              goal_id: currentGoalId,
-              text: text,
-              completed: completed,
-              is_free_space: isFreeSpace,
-            }),
+            body: JSON.stringify(requestBody),
           });
 
           const result = await response.json();

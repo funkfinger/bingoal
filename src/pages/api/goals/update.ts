@@ -30,10 +30,10 @@ export const POST: APIRoute = async ({ request, cookies }) => {
       );
     }
 
-    // Verify the goal belongs to the user's board
+    // Verify the goal belongs to the user's board and get board lock status
     const { data: goal, error: goalError } = await supabase
       .from("goals")
-      .select("board_id, is_free_space, boards!inner(user_id)")
+      .select("board_id, is_free_space, boards!inner(user_id, locked)")
       .eq("id", goal_id)
       .single();
 
@@ -53,6 +53,8 @@ export const POST: APIRoute = async ({ request, cookies }) => {
       );
     }
 
+    const boardLocked = goalData.boards.locked || false;
+
     // Prevent editing free space goal text (unless unchecking is_free_space)
     if (
       goalData.is_free_space &&
@@ -64,6 +66,30 @@ export const POST: APIRoute = async ({ request, cookies }) => {
           success: false,
           error:
             "Cannot edit free space goal text. Uncheck 'Mark as free space' first.",
+        }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
+    // Enforce board lock rules:
+    // - Unlocked boards: Can edit text and free_space, CANNOT change completion status
+    // - Locked boards: Can ONLY change completion status, cannot edit text or free_space
+    if (!boardLocked && completed !== undefined) {
+      return new Response(
+        JSON.stringify({
+          success: false,
+          error:
+            "Goal completion can only be changed on locked boards. Lock the board first.",
+        }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
+    if (boardLocked && (text !== undefined || is_free_space !== undefined)) {
+      return new Response(
+        JSON.stringify({
+          success: false,
+          error: "Cannot edit goal text or free space status on locked boards.",
         }),
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
