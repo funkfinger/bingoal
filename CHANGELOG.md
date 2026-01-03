@@ -139,14 +139,67 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Added server-side validation to prevent completion changes on unlocked boards
   - Prevents bypassing UI restrictions via direct API calls
   - Ensures proper workflow: setup goals first, then lock board to start tracking
+- Migrated from Astro to Next.js:
+  - Moved Astro source files from `src/` to `astro-src/` to preserve original implementation
+  - Created Next.js app structure with App Router
+  - Migrated all pages to Next.js:
+    - Home page (`app/page.tsx`)
+    - Login page (`app/login/page.tsx`)
+    - Dashboard page (`app/dashboard/page.tsx`)
+  - Migrated all API routes to Next.js API Routes:
+    - `/api/boards/create`, `/api/boards/update`, `/api/boards/delete`, `/api/boards/toggle-lock`
+    - `/api/goals/create`, `/api/goals/update`, `/api/goals/delete`
+  - Preserved all functionality from Astro implementation
+- Migrated authentication from Supabase Auth to Next-Auth v5:
+  - Installed `next-auth@5.0.0-beta.25` (latest stable v5 release)
+  - Created `lib/auth.ts` with Next-Auth v5 configuration
+  - Configured Google OAuth provider with Next-Auth
+  - Implemented custom callbacks for user creation in Supabase database
+  - Updated all pages and API routes to use `auth()` instead of `getServerSession()`
+  - Updated middleware to use Next-Auth v5 API
+  - Configured environment variables:
+    - `AUTH_URL` for production deployment
+    - `AUTH_SECRET` for session encryption
+    - Backward compatible with `NEXTAUTH_SECRET`
+- Created comprehensive migration documentation:
+  - `MIGRATION_GUIDE.md` with step-by-step migration instructions
+  - Documented all breaking changes and required updates
+  - Included environment variable configuration
+  - Added Google OAuth setup instructions for Next-Auth
+- Created RLS (Row Level Security) strategy documentation:
+  - `docs/RLS_STRATEGY.md` explaining authorization approach
+  - Documented why RLS is disabled in favor of application-level authorization
+  - Provided examples of authorization patterns in API routes
+  - Explained security model and user ownership verification
 
 ### Changed
+
+- Updated project structure to support both Astro and Next.js:
+  - Created `tsconfig.astro.json` for Astro-specific TypeScript configuration
+  - Updated main `tsconfig.json` for Next.js with proper path aliases
+  - Excluded `astro-src/` from Next.js TypeScript compilation
+  - Updated `.gitignore` to include Next.js build artifacts (`.next/`, `out/`, etc.)
+- Updated `package.json` scripts:
+  - `dev` now runs Next.js development server
+  - `build` now builds Next.js app
+  - Added `dev:astro`, `build:astro`, `preview:astro` for Astro development
+- Modified authentication flow:
+  - Changed from Supabase Auth to Next-Auth v5
+  - Updated callback URL from `/auth/callback` to `/api/auth/callback/google`
+  - Simplified session management with Next-Auth built-in session handling
 
 ### Deprecated
 
 ### Removed
 
 ### Fixed
+
+- Fixed Vercel deployment issues:
+
+  - Moved `astro.config.mjs` to `astro-src/` directory to prevent Vercel from detecting Astro
+  - Added `astro-src` to TypeScript exclude array to prevent compilation errors
+  - Fixed TypeScript error in `lib/supabase.ts` by using explicit `SupabaseClient` type
+  - Wrapped `useSearchParams()` in Suspense boundary in login page for Next.js static generation
 
 - Fixed OAuth callback handler to support Supabase's implicit flow (tokens in URL hash fragment)
   - Updated callback to detect tokens in hash fragment on client side
