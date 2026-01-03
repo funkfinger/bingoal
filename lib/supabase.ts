@@ -1,4 +1,4 @@
-import { createClient } from "@supabase/supabase-js";
+import { createClient, SupabaseClient } from "@supabase/supabase-js";
 
 const supabaseUrl = process.env.PUBLIC_SUPABASE_URL!;
 const supabaseAnonKey = process.env.PUBLIC_SUPABASE_ANON_KEY!;
@@ -28,7 +28,7 @@ export function createSupabaseClient(userId: string) {
 // Helper to execute queries with user context
 export async function withUserContext<T>(
   userId: string,
-  callback: (client: ReturnType<typeof createClient>) => Promise<T>
+  callback: (client: SupabaseClient) => Promise<T>
 ): Promise<T> {
   const client = createClient(supabaseUrl, supabaseAnonKey);
 
