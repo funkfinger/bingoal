@@ -5,27 +5,27 @@
 ### Story: Base Technologies
 
 - [x] **As a** developer
-      **I want to** use Astro as the base framework
+      **I want to** use Next,js as the base framework
       **So that** I can build a fast and modern web application
 
 **Acceptance Criteria:**
 
-- [x] Astro is installed and configured
+- [x] Next.js is installed and configured
 - [x] Basic project structure is in place
 - [x] Development server runs without errors
 - [x] Basic routing is implemented
 
 ### Story: Deployment
 
-- [ ] **As a** developer
-      **I want to** deploy the application to AWS Amplify
+- [x] **As a** developer
+      **I want to** deploy the application to Vercel
       **So that** I can share it with others
 
 **Acceptance Criteria:**
 
-- [ ] AWS Amplify is configured
-- [ ] Application is deployed and accessible
-- [ ] CI/CD pipeline is set up for automatic deployments
+- [x] Vercel is configured
+- [x] Application is deployed and accessible
+- [x] CI/CD pipeline is set up for automatic deployments
 
 ## User Management
 
@@ -192,17 +192,11 @@
 - [x] Completion triggers big animation if it completes the board
 - [x] Goal completion is only available on a locked board.
 
-### Story: View Goal Details
+---
 
-- [ ] **As a** user  
-       **I want to** view full details of a goal  
-       **So that** I can see the complete description if it's long
+**Note for AI Agent:** Do not work on anything below this line!
 
-**Acceptance Criteria:**
-
-- [ ] User can click/hover to see full goal text
-- [ ] Modal or tooltip displays complete information
-- [ ] Easy to close and return to board view
+---
 
 ## Group Management
 
@@ -219,11 +213,17 @@
 - [ ] User can add goal boards to the group
 - [ ] All personal boards are in a "Personal" group by default
 
----
+### Story: View Goal Details
 
-**Note for AI Agent:** Do not work on anything below this line!
+- [ ] **As a** user  
+       **I want to** view full details of a goal  
+       **So that** I can see the complete description if it's long
 
----
+**Acceptance Criteria:**
+
+- [ ] User can click/hover to see full goal text
+- [ ] Modal or tooltip displays complete information
+- [ ] Easy to close and return to board view
 
 ## Multi-User Features
 

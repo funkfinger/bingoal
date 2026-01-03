@@ -171,6 +171,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Documented why RLS is disabled in favor of application-level authorization
   - Provided examples of authorization patterns in API routes
   - Explained security model and user ownership verification
+- Implemented comprehensive goal management features:
+  - Created `data/example-goals.json` with 100 sample goal suggestions
+  - Built Add Goal modal with:
+    - Textarea with 200 character limit and character counter
+    - Pre-populated with random example goal as placeholder
+    - "✨ Inspire Me" button to get new random goals (only shown when field is empty)
+    - Option to mark goal as "free space" (auto-completed)
+  - Built Edit Goal modal with same interface as Add Goal
+  - Implemented Delete Goal with confirmation dialog
+  - Added Mark Goal as Complete functionality (only on locked boards):
+    - Click goals to toggle completion status
+    - Visual checkmark (✓) on completed goals
+    - Three levels of confetti animations:
+      - Small confetti for single goal completion
+      - Medium confetti for bingo (row/column/diagonal)
+      - Big confetti for full board completion
+  - Implemented Lock Board feature:
+    - "🔒 Lock Board" button in header (only enabled when all 25 goals added)
+    - Confirmation dialog explaining lock is permanent
+    - Locked boards show "🔒 Locked" badge
+    - Once locked, only completion toggling allowed (no add/edit/delete)
+  - All goal operations respect board lock status
+  - Comprehensive error handling and loading states
 
 ### Changed
 
@@ -224,6 +247,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Board creation now successfully navigates to board detail page instead of 404
   - Includes progress bar, visual distinction for empty/filled/completed/free space cells
   - Added back navigation to dashboard
+- Fixed text visibility issue on bingo cells:
+  - Added dark gray text color (`#1f2937`) to `.filled` class
+  - Ensures goal text is clearly visible against white background on uncompleted goals
+  - Maintains proper color contrast for accessibility
 
 ### Security
 
