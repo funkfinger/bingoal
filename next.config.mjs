@@ -1,10 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    serverActions: {
-      bodySizeLimit: "2mb",
-    },
-  },
   images: {
     remotePatterns: [
       {
@@ -15,14 +10,8 @@ const nextConfig = {
   },
   // Exclude Astro source directory from Next.js
   pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
-  webpack: (config, { isServer }) => {
-    // Ignore Astro files
-    config.watchOptions = {
-      ...config.watchOptions,
-      ignored: ["**/src/**", "**/.astro/**", "**/dist/**"],
-    };
-    return config;
-  },
+  // Empty turbopack config to silence migration warning
+  turbopack: {},
 };
 
 export default nextConfig;

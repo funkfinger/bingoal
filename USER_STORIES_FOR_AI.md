@@ -27,6 +27,47 @@
 - [x] Application is deployed and accessible
 - [x] CI/CD pipeline is set up for automatic deployments
 
+## UX / UI
+
+### Story: Basic Styling
+
+- [x] **As a** developer
+      **I want to** apply basic styling to the application
+      **So that** it has a consistent look and feel
+
+**Acceptance Criteria:**
+
+- [x] Use Tailwind CSS for styling
+- [x] Basic CSS is applied
+- [x] Layout is responsive
+- [x] Colors and typography are consistent
+- [x] Basic form elements are styled
+
+### Story: Hand-Drawn Aesthetic
+
+- [x] **As a** developer
+      **I want to** apply a hand-drawn aesthetic to the bingo board
+      **So that** it has a unique and fun look
+
+**Acceptance Criteria:**
+
+- [x] Hand-drawn borders are applied - IE - 9-slice borders
+- [x] hand-drawn shadows are applied
+- [x] Organic shapes are applied
+- [x] Slight rotations are applied
+
+### Story: All Pages Are Styled
+
+- [x] **As a** developer
+      **I want to** apply the hand-drawn aesthetic to all pages
+      **So that** the application has a consistent look and feel
+
+**Acceptance Criteria:**
+
+- [x] All pages are styled with the hand-drawn aesthetic - for example the dashboard
+- [x] Components are reusable and consistent
+- [x] Visual effects are applied consistently
+
 ## User Management
 
 ### Story: User Registration
@@ -161,7 +202,6 @@
 - [x] Inspire me button exists if the form field is empty.
 - [x] Create goal has the option be entered as a "free space" in which the UI changes to reflect that it is a free space.
 - [x] If the goal is marked as a free space, the text for the goal should be "Free Space"
-- [ ] If the goal is marked as a free space, the text for the goal should be "Free Space"
 
 ### Story: Edit Goal
 

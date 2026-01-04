@@ -9,6 +9,44 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+## [0.2.0] - 2026-01-04
+
+### Changed
+
+- **Major Framework Upgrade**: Upgraded from Next.js 14 to Next.js 16.1.1
+  - Upgraded React from 18.3.0 to 19.2.3
+  - Upgraded React DOM from 18.3.0 to 19.2.3
+  - Updated @types/react to ^19
+  - Updated @types/react-dom to ^19
+  - Updated ESLint to v9 with new flat config format
+  - Updated eslint-config-next to 16.1.1
+  - Updated Tailwind CSS to 3.4.17
+  - Updated PostCSS to 8.5.6
+  - Updated Autoprefixer to 10.4.20
+
+### Fixed
+
+- **Next.js 16 Compatibility**:
+  - Removed deprecated `serverActions` config from next.config.mjs (no longer needed in Next.js 16)
+  - Removed webpack configuration (Turbopack is now the default bundler)
+  - Added empty `turbopack: {}` config to silence migration warnings
+  - Renamed `middleware.ts` to `proxy.ts` following Next.js 16 convention
+  - Updated dynamic route params in `app/board/[id]/page.tsx` to await Promise (Next.js 16 requirement)
+  - Updated TypeScript config: changed jsx from "preserve" to "react-jsx" for React 19 compatibility
+  - Removed `@layer utilities` and `@layer components` directives from globals.css for Tailwind compatibility
+
+### Technical Details
+
+- **Build System**: Now using Turbopack as the default bundler (faster builds)
+- **TypeScript**: All type errors resolved, full compatibility with React 19 types
+- **Development Server**: Successfully running on Next.js 16.1.1 with Turbopack
+- **Production Build**: Build process completes successfully without errors
+- **Code Compatibility**: Verified no deprecated React 18 features in use (no string refs, propTypes, defaultProps, etc.)
+
+## [0.1.0] - Previous Release
+
+### Added
+
 - Created USER_STORIES.md with 27 comprehensive user stories covering:
   - User Management (registration, login, logout)
   - Bingo Board Management (create, view, edit, delete)

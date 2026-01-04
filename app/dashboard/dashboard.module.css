@@ -5,11 +5,13 @@
 
 .header {
   background: white;
-  border-bottom: 1px solid #e1e8ed;
+  border-bottom: 2px solid #e1e8ed;
   padding: 16px 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  /* Hand-drawn aesthetic */
+  box-shadow: 0 3px 0px rgba(0, 0, 0, 0.05);
 }
 
 .logo {
@@ -48,11 +50,17 @@
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.2s;
+  /* Hand-drawn aesthetic */
+  border-radius: 5px 7px 6px 8px / 7px 5px 8px 6px;
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.15);
+  transform: rotate(0.3deg);
 }
 
 .logoutBtn:hover {
   background: #5568d3;
+  transform: rotate(0deg) translateY(-1px);
+  box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.2);
 }
 
 .container {
@@ -66,7 +74,16 @@
   border-radius: 12px;
   padding: 32px;
   margin-bottom: 32px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.1);
+  /* Hand-drawn aesthetic */
+  border-radius: 11px 13px 12px 14px / 13px 11px 14px 12px;
+  transform: rotate(-0.3deg);
+  transition: all 0.3s ease;
+}
+
+.welcome:hover {
+  transform: rotate(0deg) translateY(-2px);
+  box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.15);
 }
 
 .welcome h1 {
@@ -84,7 +101,10 @@
   background: white;
   border-radius: 12px;
   padding: 32px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.1);
+  /* Hand-drawn aesthetic */
+  border-radius: 11px 13px 12px 14px / 13px 11px 14px 12px;
+  transform: rotate(0.3deg);
 }
 
 .sectionHeader {
@@ -108,11 +128,17 @@
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.2s;
+  /* Hand-drawn aesthetic */
+  border-radius: 7px 9px 8px 10px / 9px 7px 10px 8px;
+  box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.15);
+  transform: rotate(-0.3deg);
 }
 
 .createBtn:hover {
   background: #5568d3;
+  transform: rotate(0deg) translateY(-2px);
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
 }
 
 .emptyState {
@@ -136,11 +162,17 @@
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.2s;
+  /* Hand-drawn aesthetic */
+  border-radius: 7px 9px 8px 10px / 9px 7px 10px 8px;
+  box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.15);
+  transform: rotate(0.3deg);
 }
 
 .createBoardBtn:hover {
   background: #5568d3;
+  transform: rotate(0deg) translateY(-2px);
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
 }
 
 .boardsGrid {
@@ -155,14 +187,29 @@
   border-radius: 12px;
   color: white;
   transition: transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.15);
   position: relative;
   overflow: hidden;
+  /* Hand-drawn aesthetic - organic border radius */
+  border-radius: 11px 13px 12px 14px / 13px 11px 14px 12px;
+}
+
+/* Apply slight rotation to board cards for organic feel */
+.boardCard:nth-child(3n + 1) {
+  transform: rotate(0.5deg);
+}
+
+.boardCard:nth-child(3n + 2) {
+  transform: rotate(-0.5deg);
+}
+
+.boardCard:nth-child(3n + 3) {
+  transform: rotate(0.3deg);
 }
 
 .boardCard:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  transform: rotate(0deg) translateY(-4px);
+  box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.2);
 }
 
 .boardCardContent {
@@ -235,7 +282,10 @@
   padding: 32px;
   max-width: 500px;
   width: 90%;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.2);
+  /* Hand-drawn aesthetic */
+  border-radius: 11px 13px 12px 14px / 13px 11px 14px 12px;
+  transform: rotate(-0.3deg);
 }
 
 .modalHeader {
@@ -284,15 +334,20 @@
 .formGroup input {
   width: 100%;
   padding: 12px;
-  border: 1px solid #ddd;
+  border: 2px solid #ddd;
   border-radius: 6px;
   font-size: 16px;
-  transition: border-color 0.2s;
+  transition: all 0.2s;
+  /* Hand-drawn aesthetic */
+  border-radius: 5px 7px 6px 8px / 7px 5px 8px 6px;
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.05);
 }
 
 .formGroup input:focus {
   outline: none;
   border-color: #667eea;
+  box-shadow: 3px 3px 0px rgba(102, 126, 234, 0.1);
+  transform: translateY(-1px);
 }
 
 .checkboxGroup {
@@ -326,11 +381,17 @@
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.2s;
+  /* Hand-drawn aesthetic */
+  border-radius: 7px 9px 8px 10px / 9px 7px 10px 8px;
+  box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.15);
+  transform: rotate(-0.3deg);
 }
 
 .submitBtn:hover:not(:disabled) {
   background: #5568d3;
+  transform: rotate(0deg) translateY(-2px);
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
 }
 
 .submitBtn:disabled {
@@ -354,17 +415,23 @@
   padding: 10px 20px;
   background: white;
   color: #666;
-  border: 1px solid #ddd;
+  border: 2px solid #ddd;
   border-radius: 6px;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s;
+  /* Hand-drawn aesthetic */
+  border-radius: 5px 7px 6px 8px / 7px 5px 8px 6px;
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
+  transform: rotate(0.3deg);
 }
 
 .cancelBtn:hover:not(:disabled) {
   background: #f5f5f5;
   border-color: #999;
+  transform: rotate(0deg) translateY(-1px);
+  box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.15);
 }
 
 .cancelBtn:disabled {
@@ -381,11 +448,17 @@
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.2s;
+  /* Hand-drawn aesthetic */
+  border-radius: 5px 7px 6px 8px / 7px 5px 8px 6px;
+  box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.15);
+  transform: rotate(-0.3deg);
 }
 
 .confirmDeleteBtn:hover:not(:disabled) {
   background: #dc2626;
+  transform: rotate(0deg) translateY(-2px);
+  box-shadow: 4px 4px 0px rgba(220, 38, 38, 0.3);
 }
 
 .confirmDeleteBtn:disabled {

@@ -5,12 +5,15 @@ import type { Board, Goal } from "@/lib/types";
 import BoardClient from "./BoardClient";
 
 interface BoardPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export default async function BoardPage({ params }: BoardPageProps) {
+  // Await params for Next.js 16 compatibility
+  const { id } = await params;
+
   const session = await auth();
 
   if (!session?.user) {
@@ -21,7 +24,7 @@ export default async function BoardPage({ params }: BoardPageProps) {
   const { data: board, error: boardError } = await supabase
     .from("boards")
     .select("*")
-    .eq("id", params.id)
+    .eq("id", id)
     .single();
 
   if (boardError || !board) {
@@ -38,7 +41,7 @@ export default async function BoardPage({ params }: BoardPageProps) {
   const { data: goals, error: goalsError } = await supabase
     .from("goals")
     .select("*")
-    .eq("board_id", params.id)
+    .eq("board_id", id)
     .order("position", { ascending: true });
 
   if (goalsError) {
@@ -55,4 +58,3 @@ export default async function BoardPage({ params }: BoardPageProps) {
     />
   );
 }
-
