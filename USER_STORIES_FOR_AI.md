@@ -43,6 +43,19 @@
 - [x] Colors and typography are consistent
 - [x] Basic form elements are styled
 
+### Story: Fit to Mobile Screen Size Of 375px
+
+- [x] **As a** developer
+      **I want to** ensure the application fits to a mobile screen size of 375px
+      **So that** it is accessible on mobile devices
+
+**Acceptance Criteria:**
+
+- [x] Application is fully functional on mobile devices
+- [x] Layout adapts appropriately to screen size
+- [x] Text and elements are legible
+- [x] Interactive elements are accessible
+
 ### Story: Hand-Drawn Aesthetic
 
 - [x] **As a** developer
