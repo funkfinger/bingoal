@@ -9,6 +9,57 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Comprehensive Mobile Responsiveness** (375px+ Support):
+  - Implemented 5-tier responsive breakpoint system:
+    - 768px (Tablet/large mobile)
+    - 500px (Standard mobile)
+    - 400px (Small mobile)
+    - 375px (iPhone SE - critical breakpoint)
+    - 360px (Android small devices)
+  - Progressive enhancement approach with mobile-first design
+  - Guaranteed 5x5 bingo grid display at all resolutions 375px and above
+  - No horizontal scrolling on any mobile device
+  - Vertical scrolling enabled for content overflow
+
+### Changed
+
+- **Grid Layout Optimizations**:
+
+  - Progressive gap reduction: 12px → 8px → 6px → 4px → 3px → 2px
+  - Progressive container padding reduction to maximize grid space
+  - Responsive cell padding: 12px → 8px → 6px → 4px → 3px → 2px
+  - Maintained `aspect-ratio: 1` for square cells across all breakpoints
+
+- **Typography Enhancements**:
+
+  - Progressive font size scaling: 14px → 12px → 11px → 10px → 9px → 8px
+  - Line height optimization: 1.3 → 1.25 → 1.2 → 1.15 → 1.1 → 1.05
+  - Reduced line clamp from 3 to 2 lines on mobile devices
+  - Added `word-break: break-word` and `hyphens: auto` for text overflow prevention
+  - Icon scaling: checkmark (20px → 13px), plus icon (32px → 18px)
+
+- **Accessibility Improvements**:
+
+  - Maintained minimum 44px touch targets at all breakpoints:
+    - 400px: min-height 60px
+    - 375px: min-height 58px
+    - 360px: min-height 56px
+  - All touch targets exceed WCAG accessibility standards
+
+- **Visual Effects Scaling**:
+  - Progressive box-shadow reduction: 3px → 2px → 1px
+  - Border-radius scaling: 8px → 7px → 6px → 5px → 4px → 3px
+  - Rotation effects reduced: 0.75deg → 0.3deg to prevent cell overlap
+  - Hand-drawn aesthetic preserved while optimized for smaller screens
+
+### Fixed
+
+- **Mobile Layout Issues**:
+  - Fixed bingo grid breaking at small screen sizes
+  - Resolved text overflow in grid cells
+  - Eliminated horizontal scrolling on 375px viewports
+  - Ensured proper grid adaptation to narrow viewports
+
 ## [0.2.0] - 2026-01-04
 
 ### Changed
