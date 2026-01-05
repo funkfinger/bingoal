@@ -111,6 +111,16 @@ export async function POST(request: NextRequest) {
     }
 
     if (completed !== undefined) {
+      // Prevent changing completion status of free space goals
+      if (goalData.is_free_space) {
+        return NextResponse.json(
+          {
+            success: false,
+            error: "Cannot change completion status of free space goals.",
+          },
+          { status: 400 }
+        );
+      }
       updates.completed = completed;
       updates.completed_at = completed ? new Date().toISOString() : null;
     }

@@ -44,6 +44,7 @@ export default function BoardClient({
   const [showGoalModal, setShowGoalModal] = useState(false);
   const [showGoalDeleteConfirm, setShowGoalDeleteConfirm] = useState(false);
   const [showLockConfirm, setShowLockConfirm] = useState(false);
+  const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [selectedPosition, setSelectedPosition] = useState<number | null>(null);
   const [selectedGoal, setSelectedGoal] = useState<Goal | null>(null);
   const [isGoalSaving, setIsGoalSaving] = useState(false);
@@ -68,9 +69,15 @@ export default function BoardClient({
   const handleCellClick = (position: number) => {
     const goal = goalMap.get(position);
     if (goal) {
-      // If board is locked, toggle completion
+      // If board is locked, show details modal (unless it's a free space - do nothing)
       if (currentBoard.locked) {
-        handleToggleCompletion(goal);
+        if (goal.is_free_space) {
+          // Do nothing for free space goals
+          return;
+        } else {
+          // Show details modal for regular goals
+          openGoalDetailsModal(goal);
+        }
       } else {
         // If board is unlocked, open edit modal
         openGoalEditModal(goal);
@@ -81,6 +88,11 @@ export default function BoardClient({
         openGoalCreateModal(position);
       }
     }
+  };
+
+  const openGoalDetailsModal = (goal: Goal) => {
+    setSelectedGoal(goal);
+    setShowDetailsModal(true);
   };
 
   const openGoalCreateModal = (position: number) => {
@@ -201,6 +213,11 @@ export default function BoardClient({
   };
 
   const handleToggleCompletion = async (goal: Goal) => {
+    // Prevent toggling completion of free space goals
+    if (goal.is_free_space) {
+      return;
+    }
+
     const newCompletedStatus = !goal.completed;
 
     try {
@@ -430,9 +447,6 @@ export default function BoardClient({
                     <span className={styles.goalText}>
                       {goal.is_free_space ? "Free Space" : goal.text}
                     </span>
-                    {goal.completed && (
-                      <span className={styles.checkmark}>✓</span>
-                    )}
                   </div>
                 ) : (
                   <span className={styles.addIcon}>+</span>
@@ -720,6 +734,92 @@ export default function BoardClient({
                 disabled={isDeleting}
               >
                 {isDeleting ? "Deleting..." : "Delete Board"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Goal Details Modal */}
+      {showDetailsModal && selectedGoal && (
+        <div
+          className={styles.modal}
+          onClick={() => setShowDetailsModal(false)}
+        >
+          <div
+            className={styles.modalContent}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className={styles.modalHeader}>
+              <h2>Goal Details</h2>
+              <button
+                onClick={() => setShowDetailsModal(false)}
+                className={styles.closeBtn}
+              >
+                ×
+              </button>
+            </div>
+            <div className={styles.goalDetailsContent}>
+              <div className={styles.detailsSection}>
+                <label className={styles.detailsLabel}>Goal:</label>
+                <div className={styles.detailsText}>
+                  {selectedGoal.is_free_space
+                    ? "Free Space"
+                    : selectedGoal.text}
+                </div>
+              </div>
+              <div className={styles.detailsSection}>
+                <label className={styles.detailsLabel}>Status:</label>
+                <div className={styles.detailsText}>
+                  {selectedGoal.completed ? (
+                    <span className={styles.completedBadge}>✓ Completed</span>
+                  ) : (
+                    <span className={styles.incompleteBadge}>
+                      Not Completed
+                    </span>
+                  )}
+                </div>
+              </div>
+              {selectedGoal.is_free_space && (
+                <div className={styles.detailsSection}>
+                  <p className={styles.freeSpaceNote}>
+                    🎁 This is a free space - it's automatically completed and
+                    cannot be changed.
+                  </p>
+                </div>
+              )}
+              {selectedGoal.completed_at && (
+                <div className={styles.detailsSection}>
+                  <label className={styles.detailsLabel}>Completed on:</label>
+                  <p className={styles.detailsText}>
+                    {new Date(selectedGoal.completed_at).toLocaleDateString()}
+                  </p>
+                </div>
+              )}
+            </div>
+            <div className={styles.modalActions}>
+              {!selectedGoal.is_free_space && (
+                <button
+                  onClick={async () => {
+                    await handleToggleCompletion(selectedGoal);
+                    setShowDetailsModal(false);
+                  }}
+                  className={
+                    selectedGoal.completed
+                      ? styles.markIncompleteBtn
+                      : styles.markCompleteBtn
+                  }
+                >
+                  {selectedGoal.completed
+                    ? "Mark as Incomplete"
+                    : "Mark as Complete"}
+                </button>
+              )}
+              <button
+                onClick={() => setShowDetailsModal(false)}
+                className={styles.cancelBtn}
+              >
+                Close
               </button>
             </div>
           </div>

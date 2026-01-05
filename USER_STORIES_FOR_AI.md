@@ -2,6 +2,44 @@
 
 ## Application Structure
 
+## UX / UI
+
+## User Management
+
+## Bingo Board Management
+
+## Goal Management
+
+### Story: Can't change complete status of free space
+
+- [x] **As a** user
+      **I want to** not be able to change the completed status of a free space
+      **So that** I can't break the game
+
+**Acceptance Criteria:**
+
+- [x] User cannot change the completed status of a free space
+- [x] The UI reflects that the free space is completed and cannot be changed
+
+### Story: Goal Square Has Details Modal
+
+- [x] **As a** user
+      **I want to** be able to click on a goal square to see more details
+      **So that** I can see the full goal text and other information
+
+**Acceptance Criteria:**
+
+- [x] User can click on a goal square to see more details
+- [x] A modal or tooltip displays the full goal text and other information
+- [x] The modal or tooltip is easy to close and return to the board view
+- [x] In the detail model, the user should see the full text of the goal and it's completion status, similar to the board view.
+
+---
+
+# Completed Stories
+
+## Application Structure
+
 ### Story: Base Technologies
 
 - [x] **As a** developer
@@ -257,6 +295,7 @@
 - [x] Completion triggers medium confetti animation if it completes a row, column, or diagonal
 - [x] Completion triggers big animation if it completes the board
 - [x] Goal completion is only available on a locked board.
+- [x] Visually marks the goal as completed with an "X" that becomes the background of the square. The "X"should be of a color that you can see the text over.
 
 ---
 

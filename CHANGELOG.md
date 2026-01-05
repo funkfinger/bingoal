@@ -291,8 +291,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Goals marked as free space now display "Free Space" as the text
   - Maintains distinctive gold gradient styling
   - Clearer visual indication of free space goals
+- Implemented goal details modal:
+  - Users can click on goal squares (on locked boards) to view full details
+  - Modal displays goal text, completion status, and completion date
+  - Users can mark goals as complete/incomplete directly from the modal
+  - Free space goals show special note explaining they cannot be changed
+  - Easy to close with close button or clicking outside modal
+  - Provides better UX for viewing long goal text and managing completion
+- Protected free space goals from completion status changes:
+  - Free space goals cannot have their completion status toggled
+  - Clicking free space on locked board does nothing (no interaction)
+  - Client-side and server-side validation prevents free space completion changes
+  - UI clearly indicates free space is automatically completed and unchangeable
 
 ### Changed
+
+- Updated goal completion behavior:
+
+  - Changed from green gradient background to white background with large semi-transparent "X"
+  - Completed goals now show a large "✕" (120px) in background with 20% opacity green color
+  - Goal text remains dark and clearly visible over the "X" background
+  - Maintains good contrast and readability for completed goals
 
 - Updated project structure to support both Astro and Next.js:
   - Created `tsconfig.astro.json` for Astro-specific TypeScript configuration
@@ -353,6 +372,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Set label text color to `#333` (dark gray) to ensure visibility against white modal background
   - Fixed issue where "Mark as free space (auto-completed)" text was white-on-white and invisible
   - Text is now visible whether selected/highlighted or not
+- Fixed goal details modal text visibility:
+  - Added `!important` to `.detailsLabel` and `.detailsText` color properties
+  - Set text color to `#333` (dark gray) to ensure visibility against white modal background
+  - Fixed issue where goal text and labels were white-on-white and invisible
+  - Goal details now clearly visible in the modal
 
 ### Security
 

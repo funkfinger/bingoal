@@ -278,16 +278,37 @@
 }
 
 .completed {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  border: 2px solid #059669;
-  color: white;
+  background: white;
+  border: 2px solid #e5e7eb;
+  color: #1f2937;
   /* Slightly organic border radius */
   border-radius: 8px 10px 7px 9px / 10px 8px 9px 7px;
+  position: relative;
+}
+
+.completed::before {
+  content: "✕";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 120px;
+  font-weight: bold;
+  color: rgba(16, 185, 129, 0.2);
+  z-index: 0;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.completed .goalContent {
+  position: relative;
+  z-index: 1;
 }
 
 .completed:hover {
   transform: rotate(0deg) translateY(-2px);
-  box-shadow: 4px 4px 0px rgba(16, 185, 129, 0.3);
+  box-shadow: 4px 4px 0px rgba(16, 185, 129, 0.15);
+  border-color: #10b981;
 }
 
 .freeSpace {
@@ -318,11 +339,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
   word-break: break-word;
-}
-
-.checkmark {
-  font-size: 20px;
-  font-weight: bold;
 }
 
 .addIcon {
@@ -661,6 +677,97 @@
   cursor: not-allowed;
 }
 
+/* Goal Details Modal Styles */
+.goalDetailsContent {
+  margin-bottom: 20px;
+}
+
+.detailsSection {
+  margin-bottom: 16px;
+}
+
+.detailsLabel {
+  display: block;
+  font-weight: 600;
+  color: #333 !important;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.detailsText {
+  color: #333 !important;
+  line-height: 1.6;
+  margin: 0;
+  font-size: 15px;
+}
+
+.completedBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #10b981;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.incompleteBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #e5e7eb;
+  color: #666;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.freeSpaceNote {
+  background: #fef3c7;
+  border-left: 4px solid #fbbf24;
+  padding: 12px;
+  border-radius: 6px;
+  color: #78350f;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.markCompleteBtn {
+  padding: 10px 20px;
+  background: #10b981;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.markCompleteBtn:hover {
+  background: #059669;
+}
+
+.markIncompleteBtn {
+  padding: 10px 20px;
+  background: #6b7280;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.markIncompleteBtn:hover {
+  background: #4b5563;
+}
+
 /* ============================================
    RESPONSIVE BREAKPOINTS
    Mobile-first approach with progressive enhancement
@@ -754,10 +861,6 @@
     -webkit-line-clamp: 3;
   }
 
-  .checkmark {
-    font-size: 18px;
-  }
-
   .addIcon {
     font-size: 28px;
   }
@@ -807,10 +910,6 @@
   .goalText {
     line-height: 1.2;
     -webkit-line-clamp: 2;
-  }
-
-  .checkmark {
-    font-size: 16px;
   }
 
   .addIcon {
@@ -874,10 +973,6 @@
     -webkit-line-clamp: 2;
     word-break: break-word;
     hyphens: auto;
-  }
-
-  .checkmark {
-    font-size: 14px;
   }
 
   .addIcon {
@@ -974,10 +1069,6 @@
 
   .goalContent {
     gap: 4px;
-  }
-
-  .checkmark {
-    font-size: 13px;
   }
 
   .addIcon {
@@ -1101,10 +1192,6 @@
 
   .goalContent {
     gap: 3px;
-  }
-
-  .checkmark {
-    font-size: 12px;
   }
 
   .addIcon {
