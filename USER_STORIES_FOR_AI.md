@@ -10,6 +10,18 @@
 
 ## Goal Management
 
+### Story: Toggle Free Space Checkbox
+
+- [x] **As a** user
+      **I want to** be able to toggle the free space checkbox when creating a goal.
+      **So that** I can change to and from a free space.
+
+**Aceptance Criteria:**
+
+- [x] User can toggle the free space checkbox when creating a goal
+- [x] User can toggle the free space checkbox when editing a goal
+- [x] Toggling the free space checkbox on an existing goal updates the goal text to "Free Space"
+
 ### Story: Can't change complete status of free space
 
 - [x] **As a** user

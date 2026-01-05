@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Toggle Free Space Checkbox**:
+
+  - Users can now toggle the free space checkbox when creating a new goal
+  - Users can now toggle the free space checkbox when editing an existing goal
+  - Checking the free space checkbox automatically updates the goal text to "Free Space"
+  - Unchecking the free space checkbox allows users to edit the goal text freely
+
 - **Comprehensive Mobile Responsiveness** (375px+ Support):
   - Implemented 5-tier responsive breakpoint system:
     - 768px (Tablet/large mobile)

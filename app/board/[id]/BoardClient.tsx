@@ -515,13 +515,15 @@ export default function BoardClient({
                   <input
                     type="checkbox"
                     checked={goalFormData.is_free_space}
-                    onChange={(e) =>
+                    onChange={(e) => {
+                      const isChecked = e.target.checked;
                       setGoalFormData({
                         ...goalFormData,
-                        is_free_space: e.target.checked,
-                      })
-                    }
-                    disabled={selectedGoal?.is_free_space}
+                        is_free_space: isChecked,
+                        // Automatically set text to "Free Space" when checking the box
+                        text: isChecked ? "Free Space" : goalFormData.text,
+                      });
+                    }}
                   />
                   <span>Mark as free space (auto-completed)</span>
                 </label>
