@@ -9,6 +9,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **User Invitation System**:
+
+  - Moved "Invite User" button from dashboard to Friends page for better context
+  - Button now appears in the "My Friends" section header
+  - Invite modal allows users to generate shareable invite links
+  - Generated links expire in 30 days and can only be used once
+  - Copy-to-clipboard functionality for easy sharing
+  - New users clicking invite links are automatically added to inviter's group
+
 - **Group Management and Friends System**:
 
   - Implemented automatic group creation for all users:
@@ -80,6 +89,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Unchecking the free space checkbox allows users to edit the goal text freely
 
 ### Changed
+
+- **Friends Page UI Improvements**:
+
+  - Relocated "Invite User" button from dashboard header to Friends page
+  - Button now positioned in "My Friends" section header for better contextual placement
+  - Added flex layout with section header and button side-by-side on desktop
+  - Mobile-responsive design: button becomes full-width on smaller screens
+  - Enhanced button styling with green color (#10b981) and hand-drawn aesthetic
+  - Added `!important` flags to CSS to override Tailwind base styles
+  - Improved visual hierarchy and user flow for inviting friends
 
 - **Disabled Rotation Effects by Default**:
 

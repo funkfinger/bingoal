@@ -191,12 +191,6 @@ export default function FriendsClient({ user }: FriendsClientProps) {
             />
           )}
           <span className={styles.userName}>{user.name || user.email}</span>
-          <button
-            onClick={() => setShowInviteModal(true)}
-            className={styles.inviteUserBtn}
-          >
-            Invite User
-          </button>
         </div>
       </header>
 
@@ -219,13 +213,23 @@ export default function FriendsClient({ user }: FriendsClientProps) {
             <>
               {/* My Friends Group */}
               <section className={styles.section}>
-                <h2 className={styles.sectionTitle}>
-                  <span>👥</span> My Friends (
-                  {members.filter((m) => m.role !== "owner").length})
-                </h2>
-                <p className={styles.sectionDescription}>
-                  People you've invited to join your friends group
-                </p>
+                <div className={styles.sectionHeaderWithButton}>
+                  <div>
+                    <h2 className={styles.sectionTitle}>
+                      <span>👥</span> My Friends (
+                      {members.filter((m) => m.role !== "owner").length})
+                    </h2>
+                    <p className={styles.sectionDescription}>
+                      People you've invited to join your friends group
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => setShowInviteModal(true)}
+                    className={styles.inviteUserBtn}
+                  >
+                    + Invite User
+                  </button>
+                </div>
 
                 {members.filter((m) => m.role !== "owner").length === 0 ? (
                   <div className={styles.emptyState}>
