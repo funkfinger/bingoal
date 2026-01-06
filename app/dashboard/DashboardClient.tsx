@@ -23,13 +23,10 @@ export default function DashboardClient({
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
-  const [showInviteModal, setShowInviteModal] = useState(false);
   const [isCreating, setIsCreating] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [isGeneratingInvite, setIsGeneratingInvite] = useState(false);
   const [selectedBoard, setSelectedBoard] = useState<Board | null>(null);
-  const [inviteUrl, setInviteUrl] = useState<string>("");
   const [formData, setFormData] = useState({
     title: "",
     year: new Date().getFullYear(),
@@ -100,36 +97,6 @@ export default function DashboardClient({
     }
   };
 
-  const handleGenerateInvite = async () => {
-    setIsGeneratingInvite(true);
-
-    try {
-      const response = await fetch("/api/invitations/create", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({}),
-      });
-
-      const data = await response.json();
-
-      if (data.success && data.invite_url) {
-        setInviteUrl(data.invite_url);
-      } else {
-        alert(data.error || "Failed to generate invite link");
-      }
-    } catch (error) {
-      console.error("Error generating invite:", error);
-      alert("An error occurred while generating the invite link");
-    } finally {
-      setIsGeneratingInvite(false);
-    }
-  };
-
-  const handleCopyInviteLink = () => {
-    navigator.clipboard.writeText(inviteUrl);
-    alert("Invite link copied to clipboard!");
-  };
-
   const handleDeleteBoard = async () => {
     if (!selectedBoard) return;
 
@@ -195,12 +162,6 @@ export default function DashboardClient({
             className={styles.friendsBtn}
           >
             👥 Friends
-          </button>
-          <button
-            onClick={() => setShowInviteModal(true)}
-            className={styles.inviteBtn}
-          >
-            Invite User
           </button>
           <button
             onClick={() => signOut({ callbackUrl: "/" })}
@@ -447,77 +408,6 @@ export default function DashboardClient({
                 {isDeleting ? "Deleting..." : "Delete Board"}
               </button>
             </div>
-          </div>
-        </div>
-      )}
-
-      {/* Invite User Modal */}
-      {showInviteModal && (
-        <div
-          className={styles.modal}
-          onClick={() => {
-            setShowInviteModal(false);
-            setInviteUrl("");
-          }}
-        >
-          <div
-            className={styles.modalContent}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className={styles.modalHeader}>
-              <h2>Invite User to Bingoooal</h2>
-              <button
-                onClick={() => {
-                  setShowInviteModal(false);
-                  setInviteUrl("");
-                }}
-                className={styles.closeBtn}
-              >
-                ×
-              </button>
-            </div>
-
-            {!inviteUrl ? (
-              <div className={styles.inviteContent}>
-                <p className={styles.inviteDescription}>
-                  Generate an invite link to share with someone you'd like to
-                  invite to the platform. They'll be able to sign up and start
-                  tracking their goals!
-                </p>
-                <button
-                  onClick={handleGenerateInvite}
-                  className={styles.generateInviteBtn}
-                  disabled={isGeneratingInvite}
-                >
-                  {isGeneratingInvite
-                    ? "Generating..."
-                    : "Generate Invite Link"}
-                </button>
-              </div>
-            ) : (
-              <div className={styles.inviteContent}>
-                <p className={styles.inviteDescription}>
-                  Share this link with the person you want to invite:
-                </p>
-                <div className={styles.inviteLinkContainer}>
-                  <input
-                    type="text"
-                    value={inviteUrl}
-                    readOnly
-                    className={styles.inviteLinkInput}
-                  />
-                  <button
-                    onClick={handleCopyInviteLink}
-                    className={styles.copyBtn}
-                  >
-                    📋 Copy
-                  </button>
-                </div>
-                <p className={styles.inviteNote}>
-                  This link will expire in 30 days and can only be used once.
-                </p>
-              </div>
-            )}
           </div>
         </div>
       )}

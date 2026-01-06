@@ -85,6 +85,8 @@
 - [ ] User can remove members from their group
 - [ ] Removed members lose access to shared boards immediately
 - [ ] User receives confirmation before removing a member
+- [ ] User cannot remove themselves from the group
+- [ ] User cannot see themselves in the list of friends
 
 ### Story: Leave a Group
 

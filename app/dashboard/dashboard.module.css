@@ -54,7 +54,7 @@
   /* Hand-drawn aesthetic */
   border-radius: 5px 7px 6px 8px / 7px 5px 8px 6px;
   box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.15);
-  transform: rotate(0.3deg);
+  /* transform: rotate(0.3deg); */
 }
 
 .logoutBtn:hover {
@@ -104,7 +104,7 @@
   box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.1);
   /* Hand-drawn aesthetic */
   border-radius: 11px 13px 12px 14px / 13px 11px 14px 12px;
-  transform: rotate(0.3deg);
+  /* transform: rotate(0.3deg); */
 }
 
 .sectionHeader {
@@ -132,7 +132,7 @@
   /* Hand-drawn aesthetic */
   border-radius: 7px 9px 8px 10px / 9px 7px 10px 8px;
   box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.15);
-  transform: rotate(-0.3deg);
+  /* transform: rotate(-0.3deg); */
 }
 
 .createBtn:hover {
@@ -166,7 +166,7 @@
   /* Hand-drawn aesthetic */
   border-radius: 7px 9px 8px 10px / 9px 7px 10px 8px;
   box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.15);
-  transform: rotate(0.3deg);
+  /* transform: rotate(0.3deg); */
 }
 
 .createBoardBtn:hover {
@@ -196,15 +196,15 @@
 
 /* Apply slight rotation to board cards for organic feel */
 .boardCard:nth-child(3n + 1) {
-  transform: rotate(0.5deg);
+  /* transform: rotate(0.5deg); */
 }
 
 .boardCard:nth-child(3n + 2) {
-  transform: rotate(-0.5deg);
+  /* transform: rotate(-0.5deg); */
 }
 
 .boardCard:nth-child(3n + 3) {
-  transform: rotate(0.3deg);
+  /* transform: rotate(0.3deg); */
 }
 
 .boardCard:hover {
@@ -285,7 +285,7 @@
   box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.2);
   /* Hand-drawn aesthetic */
   border-radius: 11px 13px 12px 14px / 13px 11px 14px 12px;
-  transform: rotate(-0.3deg);
+  /* transform: rotate(-0.3deg); */
 }
 
 .modalHeader {
@@ -385,7 +385,7 @@
   /* Hand-drawn aesthetic */
   border-radius: 7px 9px 8px 10px / 9px 7px 10px 8px;
   box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.15);
-  transform: rotate(-0.3deg);
+  /* transform: rotate(-0.3deg); */
 }
 
 .submitBtn:hover:not(:disabled) {
@@ -452,7 +452,7 @@
   /* Hand-drawn aesthetic */
   border-radius: 5px 7px 6px 8px / 7px 5px 8px 6px;
   box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.15);
-  transform: rotate(-0.3deg);
+  /* transform: rotate(-0.3deg); */
 }
 
 .confirmDeleteBtn:hover:not(:disabled) {
@@ -651,7 +651,7 @@
   transition: all 0.2s;
   border-radius: 5px 7px 6px 8px / 7px 5px 8px 6px;
   box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.15);
-  transform: rotate(-0.3deg);
+  /* transform: rotate(-0.3deg); */
 }
 
 .friendsBtn:hover {
@@ -673,7 +673,7 @@
   transition: all 0.2s;
   border-radius: 5px 7px 6px 8px / 7px 5px 8px 6px;
   box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.15);
-  transform: rotate(-0.3deg);
+  /* transform: rotate(-0.3deg); */
 }
 
 .inviteBtn:hover {

@@ -40,6 +40,9 @@ export default function FriendsClient({ user }: FriendsClientProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [removingMemberId, setRemovingMemberId] = useState<string | null>(null);
   const [leavingGroupId, setLeavingGroupId] = useState<string | null>(null);
+  const [showInviteModal, setShowInviteModal] = useState(false);
+  const [isGeneratingInvite, setIsGeneratingInvite] = useState(false);
+  const [inviteUrl, setInviteUrl] = useState<string>("");
 
   useEffect(() => {
     fetchData();
@@ -134,6 +137,36 @@ export default function FriendsClient({ user }: FriendsClientProps) {
     }
   };
 
+  const handleGenerateInvite = async () => {
+    setIsGeneratingInvite(true);
+
+    try {
+      const response = await fetch("/api/invitations/create", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({}),
+      });
+
+      const data = await response.json();
+
+      if (data.success && data.invite_url) {
+        setInviteUrl(data.invite_url);
+      } else {
+        alert(data.error || "Failed to generate invite link");
+      }
+    } catch (error) {
+      console.error("Error generating invite:", error);
+      alert("An error occurred while generating the invite link");
+    } finally {
+      setIsGeneratingInvite(false);
+    }
+  };
+
+  const handleCopyInviteLink = () => {
+    navigator.clipboard.writeText(inviteUrl);
+    alert("Invite link copied to clipboard!");
+  };
+
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString("en-US", {
       year: "numeric",
@@ -158,6 +191,12 @@ export default function FriendsClient({ user }: FriendsClientProps) {
             />
           )}
           <span className={styles.userName}>{user.name || user.email}</span>
+          <button
+            onClick={() => setShowInviteModal(true)}
+            className={styles.inviteUserBtn}
+          >
+            Invite User
+          </button>
         </div>
       </header>
 
@@ -193,10 +232,10 @@ export default function FriendsClient({ user }: FriendsClientProps) {
                     <div className={styles.emptyIcon}>👋</div>
                     <p>No friends yet. Invite someone to get started!</p>
                     <button
-                      onClick={() => router.push("/dashboard")}
+                      onClick={() => setShowInviteModal(true)}
                       className={styles.inviteBtn}
                     >
-                      Go to Dashboard to Invite
+                      Invite User
                     </button>
                   </div>
                 ) : (
@@ -307,6 +346,77 @@ export default function FriendsClient({ user }: FriendsClientProps) {
           )}
         </div>
       </div>
+
+      {/* Invite User Modal */}
+      {showInviteModal && (
+        <div
+          className={styles.modal}
+          onClick={() => {
+            setShowInviteModal(false);
+            setInviteUrl("");
+          }}
+        >
+          <div
+            className={styles.modalContent}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className={styles.modalHeader}>
+              <h2>Invite User to Bingoooal</h2>
+              <button
+                onClick={() => {
+                  setShowInviteModal(false);
+                  setInviteUrl("");
+                }}
+                className={styles.closeBtn}
+              >
+                ×
+              </button>
+            </div>
+
+            {!inviteUrl ? (
+              <div className={styles.inviteContent}>
+                <p className={styles.inviteDescription}>
+                  Generate an invite link to share with someone you'd like to
+                  invite to the platform. They'll be able to sign up and start
+                  tracking their goals!
+                </p>
+                <button
+                  onClick={handleGenerateInvite}
+                  className={styles.generateInviteBtn}
+                  disabled={isGeneratingInvite}
+                >
+                  {isGeneratingInvite
+                    ? "Generating..."
+                    : "Generate Invite Link"}
+                </button>
+              </div>
+            ) : (
+              <div className={styles.inviteContent}>
+                <p className={styles.inviteDescription}>
+                  Share this link with the person you want to invite:
+                </p>
+                <div className={styles.inviteLinkContainer}>
+                  <input
+                    type="text"
+                    value={inviteUrl}
+                    readOnly
+                    className={styles.inviteLinkInput}
+                  />
+                  <button
+                    onClick={handleCopyInviteLink}
+                    className={styles.copyBtn}
+                  >
+                    📋 Copy
+                  </button>
+                </div>
+                <p className={styles.inviteNote}>
+                  This link will expire in 30 days and can only be used once.
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
