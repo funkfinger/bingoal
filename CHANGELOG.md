@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **shadcn/ui Component Library Integration**:
   - Initialized shadcn/ui with New York style and neutral color scheme
-  - Added 8 core UI components:
+  - Added 11 core UI components:
     - Button - Accessible button component with multiple variants (default, secondary, destructive, outline, ghost, link)
     - Card - Flexible card component with header, content, footer, title, and description subcomponents
     - Dialog - Modal dialog component for forms and confirmations
@@ -19,6 +19,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - Label - Form label component with proper accessibility
     - Badge - Small status/label component with variants
     - Separator - Visual divider component
+    - Textarea - Multi-line text input component
+    - Checkbox - Accessible checkbox component with proper ARIA attributes
+    - Progress - Progress bar component for visual feedback
   - Created `lib/utils.ts` with `cn()` helper function for merging Tailwind classes
   - Created `components.json` configuration file for shadcn CLI
   - Added PostCSS configuration for Tailwind CSS processing
@@ -42,6 +45,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Replaced all button elements with shadcn Button component
   - Maintained existing functionality while improving visual consistency
   - Prepared component for further Card/Dialog migration
+
+- **Board Component Migration to shadcn/ui**:
+
+  - Converted all buttons to shadcn Button component with appropriate variants:
+    - "Back to Dashboard" buttons use outline variant
+    - "Lock Board" button with success styling
+    - "Share" button with secondary variant
+    - "Edit" button with default variant
+    - "Delete" button with destructive variant
+  - Replaced custom cards with shadcn Card component:
+    - Board header card with title and action buttons
+    - Progress card with shadcn Progress component
+  - Converted all 6 modals to shadcn Dialog component:
+    - Goal Create/Edit modal with Textarea and Checkbox for free space
+    - Goal Delete Confirmation modal with destructive action
+    - Lock Board Confirmation modal with warning message
+    - Edit Board modal with Input fields for title and year
+    - Share Board modal with Checkbox for public sharing and Input for share link
+    - Goal Details modal with Badge for completion status
+  - Replaced progress bar with shadcn Progress component
+  - Replaced status badges with shadcn Badge component
+  - Maintained all organic-shape classes for hand-drawn aesthetic
+  - Improved accessibility with proper ARIA attributes from shadcn components
+  - Enhanced form UX with shadcn Label components for better accessibility
 
 - **Global CSS Cleanup**:
 
