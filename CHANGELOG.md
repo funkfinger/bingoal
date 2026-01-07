@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 - **Hand-Drawn Aesthetic Utilities**:
+
   - Removed all hand-drawn aesthetic CSS classes from `globals.css`:
     - `.organic-shape-1` through `.organic-shape-4` (irregular border-radius)
     - `.shadow-hand-sm`, `.shadow-hand-md`, `.shadow-hand-lg` (offset shadows)
@@ -22,6 +23,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Removed all usages of hand-drawn classes from `BoardClient.tsx`
   - Simplified component styling to use standard shadcn/ui and Tailwind classes
   - Maintained all functionality while adopting a cleaner, more standard design system
+
+- **Custom Theme and Styling**:
+  - Removed all custom color palettes from `globals.css`:
+    - Primary brand colors (purple/indigo gradient theme)
+    - Secondary colors
+    - Accent colors (purple, indigo, yellow, green, red)
+    - Semantic colors (success, warning, danger with light/dark variants)
+  - Removed custom spacing variables (`--spacing-18`, `--spacing-88`, `--spacing-128`)
+  - Removed custom border radius variables (`--radius-xl`, `--radius-2xl`, `--radius-3xl`)
+  - Removed custom box shadow variables (`--shadow-soft`, `--shadow-medium`, `--shadow-large`, `--shadow-xl`)
+  - Removed custom font family variable (`--font-sans`)
+  - Removed `.content-container` utility class
+  - Removed dark mode media query overrides for RGB color variables
+  - Removed all body and global element styling except essential resets
+  - Set `--radius: 0` to remove all rounded corners throughout the application
+  - Converted all color values to grayscale HSL format for minimal, plain aesthetic
+  - Reduced `globals.css` from 229 lines to 85 lines (63% reduction)
+  - Maintained only essential shadcn/ui CSS variables and Tailwind imports
 
 ### Added
 
