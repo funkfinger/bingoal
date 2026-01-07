@@ -246,28 +246,30 @@
 - [x] Text and elements are legible
 - [x] Interactive elements are accessible
 
-### Story: Hand-Drawn Aesthetic
+### Story: Hand-Drawn Aesthetic [REMOVED]
 
 - [x] **As a** developer
       **I want to** apply a hand-drawn aesthetic to the bingo board
       **So that** it has a unique and fun look
 
-**Acceptance Criteria:**
+**Status:** REMOVED - Migrated to standard shadcn/ui design system for better maintainability and consistency.
 
-- [x] Hand-drawn borders are applied - IE - 9-slice borders
-- [x] hand-drawn shadows are applied
-- [x] Organic shapes are applied
-- [x] Slight rotations are applied
+**Previous Acceptance Criteria:**
+
+- [x] Hand-drawn borders were applied - IE - 9-slice borders
+- [x] hand-drawn shadows were applied
+- [x] Organic shapes were applied
+- [x] Slight rotations were applied
 
 ### Story: All Pages Are Styled
 
 - [x] **As a** developer
-      **I want to** apply the hand-drawn aesthetic to all pages
+      **I want to** apply consistent styling to all pages
       **So that** the application has a consistent look and feel
 
 **Acceptance Criteria:**
 
-- [x] All pages are styled with the hand-drawn aesthetic - for example the dashboard
+- [x] All pages are styled with the shadcn/ui design system
 - [x] Components are reusable and consistent
 - [x] Visual effects are applied consistently
 

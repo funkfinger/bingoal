@@ -463,23 +463,19 @@ export default function BoardClient({
       <div className="max-w-5xl mx-auto px-6 py-10">
         {!isSharedView && (
           <div className="mb-5">
-            <Button
-              onClick={() => router.push("/dashboard")}
-              variant="outline"
-              className="organic-shape-1 shadow-hand-md rotate-slight-1 hover:rotate-0"
-            >
+            <Button onClick={() => router.push("/dashboard")} variant="outline">
               ← Back to Dashboard
             </Button>
           </div>
         )}
 
         {isSharedView && (
-          <div className="bg-secondary-100 border-2 border-secondary-300 text-secondary-800 px-6 py-4 rounded-lg mb-6 text-center font-medium organic-shape-2">
+          <div className="bg-secondary-100 border-2 border-secondary-300 text-secondary-800 px-6 py-4 rounded-lg mb-6 text-center font-medium">
             👁️ You are viewing a shared board in read-only mode
           </div>
         )}
 
-        <Card className="mb-6 shadow-hand-md organic-shape-1 rotate-slight-2">
+        <Card className="mb-6">
           <CardContent className="p-6 flex justify-between items-center">
             <div>
               <h1 className="text-gray-800 m-0 mb-2 text-3xl font-bold">
@@ -501,7 +497,7 @@ export default function BoardClient({
                   ) : (
                     <Button
                       onClick={() => setShowLockConfirm(true)}
-                      className="bg-success-light hover:bg-success organic-shape-3"
+                      className="bg-success-light hover:bg-success"
                       disabled={goals.length < 25}
                       title={
                         goals.length < 25
@@ -512,20 +508,13 @@ export default function BoardClient({
                       🔒 Lock Board
                     </Button>
                   )}
-                  <Button
-                    onClick={openShareModal}
-                    variant="secondary"
-                    className="organic-shape-4"
-                  >
+                  <Button onClick={openShareModal} variant="secondary">
                     🔗 Share
                   </Button>
-                  <Button onClick={openEditModal} className="organic-shape-1">
-                    ✏️ Edit
-                  </Button>
+                  <Button onClick={openEditModal}>✏️ Edit</Button>
                   <Button
                     onClick={() => setShowDeleteConfirm(true)}
                     variant="destructive"
-                    className="organic-shape-2"
                   >
                     🗑️ Delete
                   </Button>
@@ -535,7 +524,7 @@ export default function BoardClient({
           </CardContent>
         </Card>
 
-        <Card className="mb-6 shadow-hand-md organic-shape-2">
+        <Card className="mb-6">
           <CardContent className="p-6">
             <Progress value={progress} className="mb-3" />
             <p className="text-gray-700 text-center font-medium">
@@ -576,7 +565,6 @@ export default function BoardClient({
             onClick={() => router.push("/dashboard")}
             variant="outline"
             size="lg"
-            className="organic-shape-1 shadow-hand-md rotate-slight-1 hover:rotate-0"
           >
             ← Back to Dashboard
           </Button>
@@ -585,7 +573,7 @@ export default function BoardClient({
 
       {/* Goal Create/Edit Modal */}
       <Dialog open={showGoalModal} onOpenChange={setShowGoalModal}>
-        <DialogContent className="organic-shape-3 shadow-hand-lg max-w-xl">
+        <DialogContent className="max-w-xl">
           <DialogHeader>
             <DialogTitle>{selectedGoal ? "Edit Goal" : "Add Goal"}</DialogTitle>
           </DialogHeader>
@@ -602,7 +590,7 @@ export default function BoardClient({
                 maxLength={200}
                 rows={4}
                 required
-                className="organic-shape-4 shadow-hand-sm resize-none mt-2"
+                className="resize-none mt-2"
               />
               <div className="text-sm text-gray-500 mt-1 text-right">
                 {goalFormData.text.length}/200 characters
@@ -612,7 +600,7 @@ export default function BoardClient({
               <Button
                 type="button"
                 onClick={getRandomGoal}
-                className="w-full mb-4 bg-warning hover:bg-warning-dark organic-shape-2"
+                className="w-full mb-4 bg-warning hover:bg-warning-dark"
               >
                 ✨ Inspire Me
               </Button>
@@ -640,16 +628,11 @@ export default function BoardClient({
                   type="button"
                   onClick={() => setShowGoalDeleteConfirm(true)}
                   variant="destructive"
-                  className="organic-shape-1"
                 >
                   Delete Goal
                 </Button>
               )}
-              <Button
-                type="submit"
-                disabled={isGoalSaving}
-                className="organic-shape-2"
-              >
+              <Button type="submit" disabled={isGoalSaving}>
                 {isGoalSaving
                   ? "Saving..."
                   : selectedGoal
@@ -666,7 +649,7 @@ export default function BoardClient({
         open={showGoalDeleteConfirm && !!selectedGoal}
         onOpenChange={setShowGoalDeleteConfirm}
       >
-        <DialogContent className="organic-shape-2 shadow-hand-lg max-w-xl">
+        <DialogContent className="max-w-xl">
           <DialogHeader>
             <DialogTitle>Delete Goal?</DialogTitle>
             <DialogDescription>
@@ -678,7 +661,6 @@ export default function BoardClient({
             <Button
               onClick={() => setShowGoalDeleteConfirm(false)}
               variant="outline"
-              className="organic-shape-4"
               disabled={isGoalDeleting}
             >
               Cancel
@@ -686,7 +668,6 @@ export default function BoardClient({
             <Button
               onClick={handleDeleteGoal}
               variant="destructive"
-              className="organic-shape-1"
               disabled={isGoalDeleting}
             >
               {isGoalDeleting ? "Deleting..." : "Delete Goal"}
@@ -697,7 +678,7 @@ export default function BoardClient({
 
       {/* Lock Board Confirmation */}
       <Dialog open={showLockConfirm} onOpenChange={setShowLockConfirm}>
-        <DialogContent className="organic-shape-3 shadow-hand-lg max-w-xl">
+        <DialogContent className="max-w-xl">
           <DialogHeader>
             <DialogTitle>Lock Board?</DialogTitle>
             <DialogDescription>
@@ -710,16 +691,11 @@ export default function BoardClient({
             <Button
               onClick={() => setShowLockConfirm(false)}
               variant="outline"
-              className="organic-shape-4"
               disabled={isLocking}
             >
               Cancel
             </Button>
-            <Button
-              onClick={handleLockBoard}
-              className="organic-shape-1"
-              disabled={isLocking}
-            >
+            <Button onClick={handleLockBoard} disabled={isLocking}>
               {isLocking ? "Locking..." : "Lock Board"}
             </Button>
           </DialogFooter>
@@ -728,7 +704,7 @@ export default function BoardClient({
 
       {/* Edit Board Modal */}
       <Dialog open={showEditModal} onOpenChange={setShowEditModal}>
-        <DialogContent className="organic-shape-2 shadow-hand-lg max-w-xl">
+        <DialogContent className="max-w-xl">
           <DialogHeader>
             <DialogTitle>Edit Board</DialogTitle>
           </DialogHeader>
@@ -744,7 +720,7 @@ export default function BoardClient({
                 }
                 placeholder="e.g., 2025 Goals"
                 required
-                className="organic-shape-4 shadow-hand-sm mt-2"
+                className="mt-2"
               />
             </div>
             <div className="mb-5">
@@ -762,14 +738,10 @@ export default function BoardClient({
                 min="1900"
                 max="2100"
                 required
-                className="organic-shape-4 shadow-hand-sm mt-2"
+                className="mt-2"
               />
             </div>
-            <Button
-              type="submit"
-              disabled={isEditing}
-              className="w-full organic-shape-1"
-            >
+            <Button type="submit" disabled={isEditing} className="w-full">
               {isEditing ? "Saving..." : "Save Changes"}
             </Button>
           </form>
@@ -778,7 +750,7 @@ export default function BoardClient({
 
       {/* Share Modal */}
       <Dialog open={showShareModal} onOpenChange={setShowShareModal}>
-        <DialogContent className="organic-shape-3 shadow-hand-lg max-w-xl">
+        <DialogContent className="max-w-xl">
           <DialogHeader>
             <DialogTitle>Share Board</DialogTitle>
             <DialogDescription>
@@ -807,12 +779,9 @@ export default function BoardClient({
                     type="text"
                     value={shareUrl}
                     readOnly
-                    className="flex-1 font-mono bg-gray-50 organic-shape-4"
+                    className="flex-1 font-mono bg-gray-50"
                   />
-                  <Button
-                    onClick={copyShareLink}
-                    className="whitespace-nowrap organic-shape-2"
-                  >
+                  <Button onClick={copyShareLink} className="whitespace-nowrap">
                     📋 Copy
                   </Button>
                 </div>
@@ -824,7 +793,7 @@ export default function BoardClient({
 
       {/* Delete Confirmation Modal */}
       <Dialog open={showDeleteConfirm} onOpenChange={setShowDeleteConfirm}>
-        <DialogContent className="organic-shape-3 shadow-hand-lg max-w-md">
+        <DialogContent className="max-w-md">
           <DialogHeader>
             <DialogTitle>Delete Board?</DialogTitle>
             <DialogDescription>
@@ -837,7 +806,6 @@ export default function BoardClient({
             <Button
               onClick={() => setShowDeleteConfirm(false)}
               variant="outline"
-              className="organic-shape-1"
               disabled={isDeleting}
             >
               Cancel
@@ -845,7 +813,6 @@ export default function BoardClient({
             <Button
               onClick={handleDeleteBoard}
               variant="destructive"
-              className="organic-shape-2"
               disabled={isDeleting}
             >
               {isDeleting ? "Deleting..." : "Delete Board"}
@@ -859,7 +826,7 @@ export default function BoardClient({
         open={showDetailsModal && !!selectedGoal}
         onOpenChange={setShowDetailsModal}
       >
-        <DialogContent className="organic-shape-3 shadow-hand-lg max-w-lg">
+        <DialogContent className="max-w-lg">
           <DialogHeader>
             <DialogTitle>Goal Details</DialogTitle>
           </DialogHeader>
@@ -912,8 +879,8 @@ export default function BoardClient({
                     }}
                     className={
                       selectedGoal.completed
-                        ? "bg-warning hover:bg-warning-dark organic-shape-1"
-                        : "bg-success hover:bg-success-dark organic-shape-1"
+                        ? "bg-warning hover:bg-warning-dark"
+                        : "bg-success hover:bg-success-dark"
                     }
                   >
                     {selectedGoal.completed
@@ -924,7 +891,6 @@ export default function BoardClient({
                 <Button
                   onClick={() => setShowDetailsModal(false)}
                   variant="outline"
-                  className="organic-shape-2"
                 >
                   Close
                 </Button>

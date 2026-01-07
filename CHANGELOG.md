@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+
+- **Hand-Drawn Aesthetic Utilities**:
+  - Removed all hand-drawn aesthetic CSS classes from `globals.css`:
+    - `.organic-shape-1` through `.organic-shape-4` (irregular border-radius)
+    - `.shadow-hand-sm`, `.shadow-hand-md`, `.shadow-hand-lg` (offset shadows)
+    - `.rotate-slight-1` through `.rotate-slight-6` (rotation variations)
+    - `.wiggle-on-hover` animation
+    - `.hand-drawn-border`, `.hand-border-rough` (border effects)
+    - `.sketchy-bg` (background pattern)
+    - `.svg-filters` (SVG filter container)
+  - Removed hand-drawn shadow CSS variables from `@theme` block
+  - Removed all usages of hand-drawn classes from `BoardClient.tsx`
+  - Simplified component styling to use standard shadcn/ui and Tailwind classes
+  - Maintained all functionality while adopting a cleaner, more standard design system
+
 ### Added
 
 - **shadcn/ui Component Library Integration**:
@@ -66,7 +82,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - Goal Details modal with Badge for completion status
   - Replaced progress bar with shadcn Progress component
   - Replaced status badges with shadcn Badge component
-  - Maintained all organic-shape classes for hand-drawn aesthetic
   - Improved accessibility with proper ARIA attributes from shadcn components
   - Enhanced form UX with shadcn Label components for better accessibility
 
